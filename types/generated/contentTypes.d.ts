@@ -480,14 +480,16 @@ export interface ApiLoadLoad extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    Delivery: Schema.Attribute.Text;
     Distance: Schema.Attribute.Decimal;
     driver: Schema.Attribute.Relation<'oneToOne', 'api::driver.driver'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::load.load'> &
       Schema.Attribute.Private;
+    Origin: Schema.Attribute.Text;
+    Pickup: Schema.Attribute.Text;
     PricePerMile: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
-    Route: Schema.Attribute.Text;
     Total: Schema.Attribute.Decimal;
     truck: Schema.Attribute.Relation<'oneToOne', 'api::truck.truck'>;
     updatedAt: Schema.Attribute.DateTime;

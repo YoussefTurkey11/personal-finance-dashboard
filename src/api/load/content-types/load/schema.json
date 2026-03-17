@@ -11,7 +11,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Route": {
+    "Pickup": {
       "type": "text"
     },
     "Distance": {
@@ -37,6 +37,12 @@
       "relation": "oneToOne",
       "target": "api::truck.truck",
       "inversedBy": "load"
+    },
+    "Origin": {
+      "type": "text"
+    },
+    "Delivery": {
+      "type": "text"
     }
   }
 }
