@@ -21,12 +21,12 @@ const NotificationIcon = () => {
       />
       <DropdownMenuContent className={"w-full p-3"} align="end">
         <div className="flex flex-col gap-5">
-          <h4 className="border-b border-ring/30 pb-2">Notifications</h4>
+          <h4 className="border-b  pb-2">Notifications</h4>
           <DropdownMenuGroup>
             <DropdownMenuItem
               className={"flex items-start gap-2 cursor-pointer"}
             >
-              <div className="border border-ring/30 rounded-sm p-1">
+              <div className="border rounded-sm p-1">
                 <Car size={18} />
               </div>
               <p className="w-70 line-clamp-2">
@@ -38,7 +38,7 @@ const NotificationIcon = () => {
               </p>
             </DropdownMenuItem>
           </DropdownMenuGroup>
-          <div className="border-t border-ring/30 pt-2">
+          <div className="border-t  pt-2">
             <Link
               href={"/notification"}
               className="text-xs text-muted-foreground hover:text-primary hover:underline"

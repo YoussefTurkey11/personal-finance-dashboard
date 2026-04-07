@@ -12,7 +12,7 @@ const Logo = ({ collapsed }: { collapsed?: boolean }) => {
       className={`flex items-center gap-2 ${collapsed ? "" : "px-5"} pb-5 border-b border-border`}
     >
       <Image
-        src={theme === "dark" ? "/images/logo2.svg" : "/images/logo1.svg"}
+        src={"/images/transaction.png"}
         width={40}
         height={40}
         alt="logo"
@@ -20,8 +20,8 @@ const Logo = ({ collapsed }: { collapsed?: boolean }) => {
       />
       {!collapsed && (
         <div className="flex flex-col">
-          <h3 className="text-xl font-bold">FleetFlow</h3>
-          <p className="text-sm text-muted-foreground">Logistics SaaS</p>
+          <h3 className="text-xl font-bold">Personal Financial</h3>
+          <p className="text-sm text-muted-foreground">Dashboard</p>
         </div>
       )}
     </Link>

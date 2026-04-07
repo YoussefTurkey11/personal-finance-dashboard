@@ -11,13 +11,13 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
       <section className="flex flex-col items-center gap-5">
         <div className="flex flex-col items-center gap-2">
           <Image
-            src={"/images/logo1.svg"}
+            src={"/images/transaction.png"}
             width={50}
             height={50}
             alt="Swanteam-logo"
             loading="eager"
           />
-          <h1 className="text-3xl font-bold">FleetFlow</h1>
+          <h1 className="text-3xl font-bold">Personal Financial Dashboard</h1>
           <p className="text-muted-foreground text-sm">
             Enter your details to sign
           </p>

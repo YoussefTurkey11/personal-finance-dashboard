@@ -36,7 +36,7 @@ const ForgotPasswordForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="border border-ring/30 rounded-lg p-7 space-y-5"
+      className="border rounded-lg p-7 space-y-5"
     >
       <FieldInputForm
         label="email"
