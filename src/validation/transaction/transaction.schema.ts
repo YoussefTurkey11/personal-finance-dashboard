@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const addTransactionScheme = z.object({
   transactionTitle: z.string().min(1, "Transaction title is required"),
-  amount: z.string().regex(/^\d+(\.\d+)?$/, "Amount must be a valid number"),
+  amount: z.number().positive("Amount must be a positive number"),
   date: z.string().min(1, "Date is required"),
   category: z.enum(
     [

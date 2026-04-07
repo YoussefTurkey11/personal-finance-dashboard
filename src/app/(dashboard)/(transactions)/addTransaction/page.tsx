@@ -7,9 +7,13 @@ import FieldSelectForm from "@/components/shared/FieldSelectForm";
 import Title from "@/components/shared/Title";
 import { Button } from "@/components/ui/button";
 import { Field, FieldLabel } from "@/components/ui/field";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  categoryOptions,
+  typeOptions,
+} from "@/data/transactions/selectTransaction";
 import { useCreateTransactionMutation } from "@/redux/apis/transactionApi";
+import { convertToRichText } from "@/utils/convertToRichText";
 import {
   AddTransactionFormSchema,
   addTransactionScheme,
@@ -28,13 +32,12 @@ const AddTransition = () => {
     formState: { errors, isSubmitting },
     reset,
     control,
-    setValue,
   } = useForm<AddTransactionFormSchema>({
     resolver: zodResolver(addTransactionScheme),
     mode: "onSubmit",
     defaultValues: {
       transactionTitle: "",
-      amount: "",
+      amount: 0,
       date: "",
       category: "Food & Dining",
       type: "income",
@@ -51,7 +54,7 @@ const AddTransition = () => {
           date: data.date,
           category: data.category,
           type: data.type,
-          notes: data.notes,
+          notes: convertToRichText(data.notes ?? ""),
         },
       };
       await createTransaction(payload).unwrap();
@@ -62,21 +65,6 @@ const AddTransition = () => {
       toast.error("Transaction Added Failed");
     }
   };
-
-  const typeOptions = [
-    { value: "income", label: "Income" },
-    { value: "expense", label: "Expense" },
-  ];
-
-  const categoryOptions = [
-    { value: "Food & Dining", label: "Food & Dining" },
-    { value: "Transportation", label: "Transportation" },
-    { value: "Shopping", label: "Shopping" },
-    { value: "Entertainment", label: "Entertainment" },
-    { value: "Bills & Utilities", label: "Bills & Utilities" },
-    { value: "Healthcare", label: "Healthcare" },
-    { value: "Other", label: "Other" },
-  ];
 
   return (
     <div className="p-5">

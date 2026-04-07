@@ -31,7 +31,7 @@ const ItemSidebar = ({ collapsed }: { collapsed: boolean }) => {
               <div
                 className={`flex items-center ${
                   collapsed ? "justify-center" : "justify-between px-5"
-                } py-3 cursor-pointer hover:bg-primary hover:rounded-md transition-colors`}
+                } py-3 cursor-pointer hover:bg-primary hover:text-background dark:hover:text-foreground hover:rounded-md transition-colors`}
                 onClick={() => {
                   toggleMenu(item.id);
                 }}

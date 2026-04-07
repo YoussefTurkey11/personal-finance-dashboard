@@ -9,9 +9,9 @@ import { Pencil, Trash2 } from "lucide-react";
 import { Button } from "../../ui/button";
 import { toast } from "sonner";
 import { useState } from "react";
-// import { EditUserDialog } from "./EditUserDialog";
 import { useDeleteTransactionMutation } from "@/redux/apis/transactionApi";
 import { Transaction } from "@/types/transactionType";
+import EditTransaction from "./EditTransaction";
 
 const ActionTransactions = ({
   transactions,
@@ -61,7 +61,11 @@ const ActionTransactions = ({
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* <EditTransactionDialog open={open} setOpen={setOpen} transaction={transactions} /> */}
+      <EditTransaction
+        open={open}
+        setOpen={setOpen}
+        transaction={transactions}
+      />
     </>
   );
 };

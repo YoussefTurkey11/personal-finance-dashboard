@@ -63,7 +63,7 @@ const FieldInputForm = <T extends FieldValues>({
           id={id}
           type={isPassword && showPassword ? "text" : type}
           placeholder={placeholder}
-          {...register(id)}
+          {...register(id, type === "number" ? { valueAsNumber: true } : {})}
           className={errors[id] ? "border-destructive/90 text-destructive" : ""}
           disabled={disabled ? disabled : false}
           onFocus={onFocus}

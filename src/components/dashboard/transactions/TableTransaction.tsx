@@ -234,7 +234,7 @@ export function TableTransactions({
                     <td className="p-3">
                       <div className="flex flex-col">
                         <p className="text-md font-semibold text-primary">
-                          ${amount.toFixed(2)}
+                          ${Number(amount).toFixed(2)}
                         </p>
                         <Badge
                           variant="outline"

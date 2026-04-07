@@ -15,7 +15,7 @@ export const transactionApi = api.injectEndpoints({
     }),
 
     // Get Single Transaction
-    getSingleTransaction: builder.query<ApiResponseTransaction, number>({
+    getSingleTransaction: builder.query<ApiResponseTransaction, string>({
       query: (documentId) => `/api/transactions/${documentId}?populate=*`,
       providesTags: [{ type: "Transactions", id: "LIST" }],
     }),
