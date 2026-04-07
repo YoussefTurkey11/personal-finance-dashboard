@@ -21,6 +21,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Transaction } from "@/types/transactionType";
 import ActionTransactions from "./ActionTransactions";
+import { DatePickerInput } from "@/components/shared/DatePickerInput";
+import { DateFilter } from "@/components/shared/DateFilter";
+import { useMemo, useState } from "react";
 
 const TABS = [
   { label: "All", value: "all" },
@@ -41,6 +44,7 @@ export function TableTransactions({
 }) {
   const rows = transactions ?? [];
   const skeletonRows = Array.from({ length: 3 });
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   /* ---------------- search ---------------- */
 
@@ -51,20 +55,44 @@ export function TableTransactions({
   ]);
 
   /* ---------------- filter ---------------- */
-
   const { filter, setFilter, filteredRowsFilter } = useTableFilter(
     filteredRowsSearch,
     (row, filter) => {
-      if (filter === "income") return row.type === "income";
-      if (filter === "expenses") return row.type === "expense";
-      return true;
+      const matchType =
+        filter === "all"
+          ? true
+          : filter === "income"
+            ? row.type === "income"
+            : row.type === "expense";
+
+      const matchDate = selectedDate
+        ? new Date(row.date).toLocaleDateString("en-CA") === selectedDate
+        : true;
+
+      return matchType && matchDate;
     },
   );
+
+  const filteredRowsByTypeAndDate = useMemo(() => {
+    return filteredRowsSearch.filter((row) => {
+      if (filter !== "all") {
+        if (filter === "income" && row.type !== "income") return false;
+        if (filter === "expenses" && row.type !== "expense") return false;
+      }
+
+      if (selectedDate) {
+        const rowDate = new Date(row.date).toLocaleDateString("en-CA");
+        if (rowDate !== selectedDate) return false;
+      }
+
+      return true;
+    });
+  }, [filteredRowsSearch, filter, selectedDate]);
 
   /* ---------------- sort ---------------- */
 
   const { sortedRows, handleSort, sortKey, sortDirection } =
-    useTableSort<Transaction>(filteredRowsFilter);
+    useTableSort<Transaction>(filteredRowsByTypeAndDate);
 
   /* ---------------- pagination ---------------- */
 
@@ -119,15 +147,18 @@ export function TableTransactions({
           </TabsList>
         </Tabs>
 
-        <div className="relative w-full md:w-72">
-          <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+        <div className="flex items-center gap-5">
+          <DateFilter value={selectedDate} onChange={setSelectedDate} />
+          <div className="relative w-full md:w-72">
+            <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
 
-          <Input
-            placeholder="Search"
-            className="pl-9 border border-border"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+            <Input
+              placeholder="Search"
+              className="pl-9 border border-border"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
         </div>
       </div>
 
