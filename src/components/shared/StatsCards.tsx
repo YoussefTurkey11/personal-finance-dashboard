@@ -32,7 +32,7 @@ const StatsCards = ({
     );
 
   return (
-    <div className="rounded-lg border bg-background p-5 space-y-5">
+    <div className="rounded-lg border bg-card p-5 space-y-5">
       <div className="flex items-center justify-between">
         <div className={`p-3 rounded-lg ${color}`}>{icon}</div>
         <Badge
@@ -48,7 +48,9 @@ const StatsCards = ({
 
       <div className="flex flex-col">
         <p className="text-md font-semibold text-muted-foreground">{title}</p>
-        <h4 className="text-3xl font-bold">${count}</h4>
+        <h4 className="text-3xl font-bold">
+          {title === "Total Transaction" ? count : `$${count}`}
+        </h4>
       </div>
     </div>
   );
