@@ -28,6 +28,7 @@ import {
   Cell,
 } from "recharts";
 import { Transaction } from "@/types/transactionType";
+import { Skeleton } from "./skeleton";
 
 // Chart configuration for Shadcn UI - using Tailwind HSL colors
 const chartConfig = {
@@ -46,11 +47,13 @@ const ChartFinancial = ({
   totalIncome,
   totalExpenses,
   transactions = [],
+  loading,
 }: {
   totalBalance: number;
   totalIncome: number;
   totalExpenses: number;
   transactions: Transaction[];
+  loading: boolean;
 }) => {
   // Calculate total sales and average conversion
   const avgConversion = (totalIncome + totalExpenses) / totalBalance;
@@ -108,131 +111,140 @@ const ChartFinancial = ({
           </div>
 
           {/* Combined Bar + Line Chart */}
-          <div className="w-full">
-            <ChartContainer config={chartConfig} className="h-75 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <ComposedChart
-                  data={chartData}
-                  margin={{ top: 20, bottom: 20 }}
-                  accessibilityLayer
-                >
-                  <defs>
-                    <linearGradient
-                      id="salesGradient"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="1"
-                    >
-                      <stop
-                        offset="0%"
-                        stopColor="var(--chart-1)"
-                        stopOpacity={0.5}
-                      />
-                      <stop
-                        offset="100%"
-                        stopColor="var(--chart-1)"
-                        stopOpacity={0.1}
-                      />
-                    </linearGradient>
-                  </defs>
-
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    stroke="hsl(var(--border))"
-                    vertical={false}
-                    opacity={0.5}
-                  />
-
-                  <XAxis
-                    dataKey="name"
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 12, fill: "var(--muted-foreground)" }}
-                    tickMargin={10}
-                  />
-
-                  <YAxis
-                    yAxisId="left"
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 11, fill: "var(--muted-foreground)" }}
-                    tickFormatter={(value) => `$${(value / 1000).toFixed(1)}k`}
-                    width={50}
-                  />
-
-                  <YAxis
-                    yAxisId="right"
-                    orientation="right"
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 11, fill: "var(--muted-foreground)" }}
-                    tickFormatter={(value) => `${value}%`}
-                    width={45}
-                  />
-
-                  <ChartTooltip
-                    cursor={{ fill: "var(--muted)", opacity: 0.2 }}
-                    content={
-                      <ChartTooltipContent
-                        formatter={(value, name) => {
-                          if (name === "conversion") {
-                            return [
-                              `${Number(value).toFixed(1)}%`,
-                              "Conversion Rate",
-                            ];
-                          }
-                          return [
-                            `$${Number(value).toLocaleString()}`,
-                            "Sales",
-                          ];
-                        }}
-                      />
-                    }
-                  />
-
-                  <ChartLegend
-                    content={<ChartLegendContent />}
-                    iconType="circle"
-                  />
-
-                  {/* Bar chart for Sales */}
-                  <Bar
-                    yAxisId="left"
-                    dataKey="amount"
-                    fill="var(--chart-1)"
-                    radius={[8, 8, 0, 0]}
-                    maxBarSize={60}
+          {loading ? (
+            <Skeleton className="h-55 w-full rounded-lg" />
+          ) : (
+            <div className="w-full">
+              <ChartContainer config={chartConfig} className="h-75 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <ComposedChart
+                    data={chartData}
+                    margin={{ top: 20, bottom: 20 }}
+                    accessibilityLayer
                   >
-                    {chartData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill="url(#salesGradient)" />
-                    ))}
-                  </Bar>
+                    <defs>
+                      <linearGradient
+                        id="salesGradient"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="0%"
+                          stopColor="var(--chart-1)"
+                          stopOpacity={0.5}
+                        />
+                        <stop
+                          offset="100%"
+                          stopColor="var(--chart-1)"
+                          stopOpacity={0.1}
+                        />
+                      </linearGradient>
+                    </defs>
 
-                  {/* Line chart for Conversion Rate */}
-                  <Line
-                    yAxisId="right"
-                    type="monotone"
-                    dataKey="conversion"
-                    stroke="var(--chart-3)"
-                    strokeWidth={3}
-                    dot={{
-                      fill: "var(--chart-3)",
-                      strokeWidth: 2,
-                      r: 6,
-                      stroke: "var(--background)",
-                    }}
-                    activeDot={{
-                      r: 8,
-                      fill: "var(--chart-3)",
-                      stroke: "var(--background)",
-                      strokeWidth: 3,
-                    }}
-                  />
-                </ComposedChart>
-              </ResponsiveContainer>
-            </ChartContainer>
-          </div>
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      stroke="hsl(var(--border))"
+                      vertical={false}
+                      opacity={0.5}
+                    />
+
+                    <XAxis
+                      dataKey="name"
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fontSize: 12, fill: "var(--muted-foreground)" }}
+                      tickMargin={10}
+                    />
+
+                    <YAxis
+                      yAxisId="left"
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fontSize: 11, fill: "var(--muted-foreground)" }}
+                      tickFormatter={(value) =>
+                        `$${(value / 1000).toFixed(1)}k`
+                      }
+                      width={50}
+                    />
+
+                    <YAxis
+                      yAxisId="right"
+                      orientation="right"
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fontSize: 11, fill: "var(--muted-foreground)" }}
+                      tickFormatter={(value) => `${value}%`}
+                      width={45}
+                    />
+
+                    <ChartTooltip
+                      cursor={{ fill: "var(--muted)", opacity: 0.2 }}
+                      content={
+                        <ChartTooltipContent
+                          formatter={(value, name) => {
+                            if (name === "conversion") {
+                              return [
+                                `${Number(value).toFixed(1)}%`,
+                                "Conversion Rate",
+                              ];
+                            }
+                            return [
+                              `$${Number(value).toLocaleString()}`,
+                              "Sales",
+                            ];
+                          }}
+                        />
+                      }
+                    />
+
+                    <ChartLegend
+                      content={<ChartLegendContent />}
+                      iconType="circle"
+                    />
+
+                    {/* Bar chart for Sales */}
+                    <Bar
+                      yAxisId="left"
+                      dataKey="amount"
+                      fill="var(--chart-1)"
+                      radius={[8, 8, 0, 0]}
+                      maxBarSize={60}
+                    >
+                      {chartData.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill="url(#salesGradient)"
+                        />
+                      ))}
+                    </Bar>
+
+                    {/* Line chart for Conversion Rate */}
+                    <Line
+                      yAxisId="right"
+                      type="monotone"
+                      dataKey="conversion"
+                      stroke="var(--chart-3)"
+                      strokeWidth={3}
+                      dot={{
+                        fill: "var(--chart-3)",
+                        strokeWidth: 2,
+                        r: 6,
+                        stroke: "var(--background)",
+                      }}
+                      activeDot={{
+                        r: 8,
+                        fill: "var(--chart-3)",
+                        stroke: "var(--background)",
+                        strokeWidth: 3,
+                      }}
+                    />
+                  </ComposedChart>
+                </ResponsiveContainer>
+              </ChartContainer>
+            </div>
+          )}
 
           {/* Footer Info */}
           <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground pt-2 border-t">

@@ -90,10 +90,14 @@ const Admin = () => {
             totalIncome={totalIncome}
             totalExpenses={totalExpenses}
             transactions={transaction ?? []}
+            loading={loading}
           />
         </div>
         <div>
-          <ChartPieDonutFinancial transactions={transaction ?? []} />
+          <ChartPieDonutFinancial
+            transactions={transaction ?? []}
+            loading={loading}
+          />
         </div>
       </div>
 
