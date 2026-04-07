@@ -1,6 +1,13 @@
 "use client";
 
-import { ArrowDown, ArrowUp, ArrowUpDown, Dot, Search } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowUp,
+  ArrowUpDown,
+  BadgeDollarSign,
+  Dot,
+  Search,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -193,17 +200,16 @@ export function TableTransactions({
                     className="border-border border-b last:border-0"
                   >
                     <td className="p-3">
-                      <div className="flex items-center gap-3">
-                        <Image
-                          src={"/images/financial.png"}
-                          width={40}
-                          height={40}
-                          alt={`${transactionTitle} avatar`}
-                          loading="lazy"
-                          className="bg-muted p-2 rounded-full"
+                      <Link
+                        href={`/transaction/${documentId}`}
+                        className="flex items-center gap-3 group"
+                      >
+                        <BadgeDollarSign
+                          size={50}
+                          className="bg-muted p-2 rounded-full border border-muted group-hover:border-primary transition-colors"
                         />
                         <div>
-                          <p className="text-md truncate font-semibold">
+                          <p className="text-md truncate max-w-40 group-hover:max-w-full font-semibold transition-all">
                             {transactionTitle}
                           </p>
                           <div className="flex items-center">
@@ -222,7 +228,7 @@ export function TableTransactions({
                             </span>
                           </div>
                         </div>
-                      </div>
+                      </Link>
                     </td>
 
                     <td className="p-3">
