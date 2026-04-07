@@ -61,7 +61,7 @@ const Transition = ({ params }: Props) => {
 
       {isTransactionError && <ErrorPage />}
 
-      <div className="border rounded-lg bg-secondary/5 p-5 my-10">
+      <div className="border rounded-lg bg-card p-5 my-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <BadgeDollarSign

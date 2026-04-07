@@ -95,6 +95,7 @@ export function DatePickerInput({ field, errors }: Props) {
                 mode="single"
                 selected={date}
                 month={month}
+                disabled={{ after: new Date() }}
                 onMonthChange={setMonth}
                 onSelect={(date) => {
                   if (!date) return;

@@ -31,7 +31,7 @@ const SidebarDesktop = () => {
         p-5
         border-r
         border-border
-        bg-secondary/5
+        bg-card
         flex-col
         justify-between
       "

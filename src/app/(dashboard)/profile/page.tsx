@@ -46,7 +46,7 @@ const Profile = () => {
 
   return (
     <section className="flex justify-center items-center min-h-[calc(100vh-81px)]">
-      <div className="bg-background rounded-lg p-5 flex items-center justify-center flex-col gap-5 w-70">
+      <div className="bg-card rounded-lg p-5 flex items-center justify-center flex-col gap-5 w-70">
         <div>
           <Image
             src={"/images/driver.png"}

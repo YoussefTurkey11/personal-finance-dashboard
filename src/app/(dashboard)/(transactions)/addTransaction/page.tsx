@@ -77,7 +77,7 @@ const AddTransition = () => {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-5 max-w-4xl border mx-auto my-10 p-5 rounded-lg bg-secondary/5"
+        className="space-y-5 max-w-4xl border mx-auto my-10 p-5 rounded-lg bg-card"
       >
         <div className="mb-5">
           <h2 className="text-4xl font-bold">Add Transaction</h2>

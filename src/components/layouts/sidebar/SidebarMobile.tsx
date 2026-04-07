@@ -34,7 +34,7 @@ const SidebarMobile = () => {
             p-5
             border-r
             border-border
-            bg-background
+            bg-card
             flex
             flex-col
             justify-between

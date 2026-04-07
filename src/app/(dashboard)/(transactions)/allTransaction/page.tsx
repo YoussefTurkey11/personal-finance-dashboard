@@ -74,7 +74,7 @@ const AllTransition = () => {
         />
       </div>
 
-      <div className="bg-background rounded-lg border p-5">
+      <div className="bg-card rounded-lg border p-5">
         <TableTransactions
           transactions={transaction}
           isFetching={isTransactionFetching}

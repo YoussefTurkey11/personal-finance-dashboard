@@ -52,7 +52,7 @@ const Users = () => {
         />
       </div>
 
-      <div className="bg-background rounded-lg shadow p-5">
+      <div className="bg-card rounded-lg shadow p-5">
         <TableUsers users={users} isFetching={userLoading} />
       </div>
     </div>
