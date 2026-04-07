@@ -11,34 +11,33 @@ import {
 import { Alert, AlertTitle } from "../ui/alert";
 import { AlertCircleIcon } from "lucide-react";
 
+type SelectOption = {
+  value: string;
+  label: string;
+};
+
 type FieldSelectFormProps<T extends FieldValues> = {
   label: string;
-  go: string;
-  goNot: string;
   id: Path<T>;
   errors: FieldErrors<T>;
   field: {
-    value: boolean | undefined;
-    onChange: (value: boolean) => void;
+    value: string;
+    onChange: (value: string) => void;
+    name: string;
   };
+  options: SelectOption[];
+  placeholder?: string;
 };
 
 const FieldSelectForm = <T extends FieldValues>({
   label,
-  go,
-  goNot,
   id,
   errors,
   field,
-}: FieldSelectFormProps<T> & {
-  field: {
-    value: boolean | undefined;
-    onChange: (value: boolean) => void;
-    name: string;
-  };
-}) => {
-  const selectedValue =
-    field.value === true ? "true" : field.value === false ? "false" : undefined;
+  options,
+  placeholder = "Select an option",
+}: FieldSelectFormProps<T>) => {
+  const selectedValue = field.value;
 
   return (
     <Field>
@@ -52,16 +51,19 @@ const FieldSelectForm = <T extends FieldValues>({
       <Select
         name={field.name}
         value={selectedValue}
-        onValueChange={(val) => field.onChange(val === "true")}
+        onValueChange={(val) => field.onChange(val as string)}
       >
-        <SelectTrigger className="w-full max-w-48">
-          <SelectValue placeholder="Select status" />
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder={placeholder} />
         </SelectTrigger>
 
         <SelectContent>
           <SelectGroup>
-            <SelectItem value="true">{go}</SelectItem>
-            <SelectItem value="false">{goNot}</SelectItem>
+            {options.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
           </SelectGroup>
         </SelectContent>
       </Select>

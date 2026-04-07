@@ -13,20 +13,20 @@ export type Transaction = {
   id?: number;
   documentId?: string;
   transactionTitle: string;
-  amount: number;
+  amount: string;
   type: TransactionType;
   category: TransactionCategories;
-  date: Date;
-  notes?: TransactionNotes[];
+  date: string;
+  notes?: string;
   createdAt?: string;
   updatedAt?: string;
   publishedAt?: string;
 };
 
-export type TransactionNotes = {
-  type: string;
-  children: { type: string; text: string }[];
-};
+// export type TransactionNotes = {
+//   type: string;
+//   children: { type: string; text: string }[];
+// };
 
 export type TransactionType = "income" | "expense";
 
