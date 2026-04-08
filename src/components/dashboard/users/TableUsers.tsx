@@ -171,99 +171,107 @@ export function TableUsers({
           </thead>
 
           <tbody className="text-sm">
-            {isFetching
-              ? skeletonRows.map((_, i) => (
-                  <tr key={i} className="border-border border-b">
+            {isFetching ? (
+              skeletonRows.map((_, i) => (
+                <tr key={i} className="border-border border-b">
+                  <td className="p-3">
+                    <Skeleton className="h-4 w-10" />
+                  </td>
+
+                  <td className="p-3">
+                    <Skeleton className="h-4 w-32" />
+                  </td>
+
+                  <td className="p-3">
+                    <Skeleton className="h-4 w-16" />
+                  </td>
+
+                  <td className="p-3">
+                    <Skeleton className="h-4 w-20" />
+                  </td>
+
+                  <td className="p-3">
+                    <Skeleton className="h-4 w-20" />
+                  </td>
+
+                  <td className="p-3">
+                    <Skeleton className="h-6 w-24 rounded-full" />
+                  </td>
+
+                  <td className="p-3">
+                    <Skeleton className="h-6 w-24 rounded-full" />
+                  </td>
+                </tr>
+              ))
+            ) : paginatedRows.length === 0 ? (
+              <tr>
+                <td
+                  colSpan={7}
+                  className="text-center py-6 text-muted-foreground"
+                >
+                  No Users found
+                </td>
+              </tr>
+            ) : (
+              paginatedRows.map(
+                ({
+                  id,
+                  documentId,
+                  username,
+                  Phone,
+                  email,
+                  confirmed,
+                  blocked,
+                }) => (
+                  <tr key={id} className="border-border border-b last:border-0">
+                    <td className="p-3">{id}</td>
+
                     <td className="p-3">
-                      <Skeleton className="h-4 w-10" />
+                      <div className="flex items-center gap-2">
+                        <Image
+                          src={"/images/driver.png"}
+                          width={20}
+                          height={20}
+                          alt={`${username} avatar`}
+                          loading="lazy"
+                        />
+                        <span className="truncate">{username}</span>
+                      </div>
+                    </td>
+
+                    <td className="p-3">{email}</td>
+
+                    <td className="p-3">{Phone ?? "--"}</td>
+
+                    <td className="p-3">
+                      <Badge variant={confirmed ? "default" : "destructive"}>
+                        {confirmed ? "Confirmed" : "Unconfirmed"}
+                      </Badge>
                     </td>
 
                     <td className="p-3">
-                      <Skeleton className="h-4 w-32" />
+                      <Badge variant={blocked ? "destructive" : "default"}>
+                        {blocked ? "Blocked" : "Unblocked"}
+                      </Badge>
                     </td>
 
                     <td className="p-3">
-                      <Skeleton className="h-4 w-16" />
-                    </td>
-
-                    <td className="p-3">
-                      <Skeleton className="h-4 w-20" />
-                    </td>
-
-                    <td className="p-3">
-                      <Skeleton className="h-4 w-20" />
-                    </td>
-
-                    <td className="p-3">
-                      <Skeleton className="h-6 w-24 rounded-full" />
-                    </td>
-
-                    <td className="p-3">
-                      <Skeleton className="h-6 w-24 rounded-full" />
+                      <ActionUser
+                        user={{
+                          id,
+                          documentId,
+                          username,
+                          Phone,
+                          email,
+                          confirmed,
+                          blocked,
+                        }}
+                      />
                     </td>
                   </tr>
-                ))
-              : paginatedRows.map(
-                  ({
-                    id,
-                    documentId,
-                    username,
-                    Phone,
-                    email,
-                    confirmed,
-                    blocked,
-                  }) => (
-                    <tr
-                      key={id}
-                      className="border-border border-b last:border-0"
-                    >
-                      <td className="p-3">{id}</td>
-
-                      <td className="p-3">
-                        <div className="flex items-center gap-2">
-                          <Image
-                            src={"/images/driver.png"}
-                            width={20}
-                            height={20}
-                            alt={`${username} avatar`}
-                            loading="lazy"
-                          />
-                          <span className="truncate">{username}</span>
-                        </div>
-                      </td>
-
-                      <td className="p-3">{email}</td>
-
-                      <td className="p-3">{Phone ?? "--"}</td>
-
-                      <td className="p-3">
-                        <Badge variant={confirmed ? "default" : "destructive"}>
-                          {confirmed ? "Confirmed" : "Unconfirmed"}
-                        </Badge>
-                      </td>
-
-                      <td className="p-3">
-                        <Badge variant={blocked ? "destructive" : "default"}>
-                          {blocked ? "Blocked" : "Unblocked"}
-                        </Badge>
-                      </td>
-
-                      <td className="p-3">
-                        <ActionUser
-                          user={{
-                            id,
-                            documentId,
-                            username,
-                            Phone,
-                            email,
-                            confirmed,
-                            blocked,
-                          }}
-                        />
-                      </td>
-                    </tr>
-                  ),
-                )}
+                ),
+              )
+            )}
           </tbody>
         </table>
       </div>

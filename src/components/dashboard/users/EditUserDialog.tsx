@@ -17,6 +17,7 @@ import { useEffect } from "react";
 import { User } from "@/types/authType";
 import { useUpdateUserMutation } from "@/redux/apis/userApi";
 import { UserFormSchema, userSchema } from "@/validation/user/user.schema";
+import { blockedOptions, confirmedOptions } from "@/data/users/selectUser";
 
 type Props = {
   open: boolean;
@@ -103,15 +104,14 @@ export function EditUserDialog({ open, setOpen, user }: Props) {
             <Controller
               name="confirmed"
               control={control}
-              key="confirmed-controller"
               render={({ field }) => (
                 <FieldSelectForm
                   label="Confirmation"
-                  go="Confirmed"
-                  goNot="Unconfirmed"
                   id="confirmed"
                   errors={errors}
                   field={field}
+                  options={confirmedOptions}
+                  placeholder="Select category"
                 />
               )}
             />
@@ -119,15 +119,14 @@ export function EditUserDialog({ open, setOpen, user }: Props) {
             <Controller
               name="blocked"
               control={control}
-              key="blocked-controller"
               render={({ field }) => (
                 <FieldSelectForm
                   label="Blocking"
-                  go="blocked"
-                  goNot="Unblocked"
                   id="blocked"
                   errors={errors}
                   field={field}
+                  options={blockedOptions}
+                  placeholder="Select category"
                 />
               )}
             />
