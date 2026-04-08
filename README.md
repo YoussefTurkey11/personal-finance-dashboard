@@ -69,12 +69,27 @@ You can visualize:
 - Add transaction form
 - Transaction Page
   using interactive charts.
-
-### Future Improvements
-
 - Role-based access control
 - Mobile responsive optimization
 - Advanced analytics
+
+### Used Libraries
+
+- hookform/resolvers
+- react-hook-form
+- zod
+- reduxjs & react-redux
+- js-cookie
+- framer-motion
+- lucide-react
+- next-themes
+- react-day-picker
+- recharts
+- shadcn
+
+### Preview
+
+[View Demo]()
 
 ## 🔗 Setup
 
