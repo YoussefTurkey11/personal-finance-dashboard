@@ -24,6 +24,14 @@ import ActionTransactions from "./ActionTransactions";
 import { DatePickerInput } from "@/components/shared/DatePickerInput";
 import { DateFilter } from "@/components/shared/DateFilter";
 import { useMemo, useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { categoryOptions } from "@/data/transactions/selectTransaction";
 
 const TABS = [
   { label: "All", value: "all" },
@@ -45,6 +53,7 @@ export function TableTransactions({
   const rows = transactions ?? [];
   const skeletonRows = Array.from({ length: 3 });
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   /* ---------------- search ---------------- */
 
@@ -75,19 +84,26 @@ export function TableTransactions({
 
   const filteredRowsByTypeAndDate = useMemo(() => {
     return filteredRowsSearch.filter((row) => {
+      // filter by type
       if (filter !== "all") {
         if (filter === "income" && row.type !== "income") return false;
         if (filter === "expenses" && row.type !== "expense") return false;
       }
 
+      // filter by date
       if (selectedDate) {
         const rowDate = new Date(row.date).toLocaleDateString("en-CA");
         if (rowDate !== selectedDate) return false;
       }
 
+      // filter by category
+      if (selectedCategory !== "all") {
+        if (row.category !== selectedCategory) return false;
+      }
+
       return true;
     });
-  }, [filteredRowsSearch, filter, selectedDate]);
+  }, [filteredRowsSearch, filter, selectedDate, selectedCategory]);
 
   /* ---------------- sort ---------------- */
 
@@ -147,8 +163,28 @@ export function TableTransactions({
           </TabsList>
         </Tabs>
 
-        <div className="flex items-center gap-5">
-          <DateFilter value={selectedDate} onChange={setSelectedDate} />
+        <div className="flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto">
+          <div className="flex items-center gap-5 w-full sm:w-auto">
+            <DateFilter value={selectedDate} onChange={setSelectedDate} />
+            <Select
+              value={selectedCategory}
+              onValueChange={(value) => setSelectedCategory(value as string)}
+            >
+              <SelectTrigger className="w-full sm:w-45">
+                <SelectValue placeholder="All Categories" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectItem value="all">All Categories</SelectItem>
+
+                {categoryOptions.map((cat) => (
+                  <SelectItem key={cat.value} value={cat.value}>
+                    {cat.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
           <div className="relative w-full md:w-72">
             <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
 
